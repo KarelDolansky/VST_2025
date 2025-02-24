@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include <stdbool.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -108,7 +109,7 @@ int main(void)
   uint32_t state=0;
 
 
-  bool button_state = false;
+  bool buttonState = false;
   uint32_t tckButton = HAL_GetTick();
   uint32_t tckButtonPress= 0;
   while (1)
@@ -116,123 +117,77 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  	uint32_t tck = HAL_GetTick();
+	  uint32_t tck = HAL_GetTick();
+	          bool buttonNow = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);
 
+	          switch (state) {
+	              case 0:
+	                  if (tck - tckLedB >= 250) {
+	                      tckLedB += 250;
+	                      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+	                  }
+	                  if (tck - tckLedR >= 125) {
+	                      tckLedR += 125;
+	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	                  }
+	                  if (buttonState) {
+	                      state = 1;
+	                  }
+	                  break;
 
+	              case 1:
+	                  if (tck - tckLedB >= 50) {
+	                      tckLedB += 50;
+	                      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+	                  }
+	                  if (buttonState && (tck - tckButtonPress >= 1000)) {
+	                      state = 2;
+	                  }
+	                  break;
 
-	  	if(state==0){
-	  		if (tck-tckLedB >= 500/2)  {
+	              case 2:
+	                  if (tck - tckLedB >= 100) {
+	                      tckLedB += 100;
+	                      HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+	                      state = 3;
+	                  }
+	                  if (tck - tckLedR >= ledRPeriod / 2) {
+	                      tckLedR += ledRPeriod / 2;
+	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	                  }
+	                  break;
 
-					tckLedB += 500/2;
+	              case 3:
+	                  if (tck - tckLedB >= 400) {
+	                      tckLedB += 400;
+	                      HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+	                      state = 2;
+	                  }
+	                  if (tck - tckLedR >= ledRPeriod / 2) {
+	                      tckLedR += ledRPeriod / 2;
+	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	                  }
+	                  break;
+	          }
+	          if (buttonState) {
+	              if (!buttonNow && (tck - tckButton > 20)) {
+	                  buttonState = false;
+	                  ledRPeriod = tck - tckButtonPress;
+	              }
+	          } else {
+	              if (buttonNow && (tck - tckButton > 20)) {
+	                  buttonState = true;
+	                  tckButtonPress = tck;
+	                  if (state == 1) {
+	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	                  }
+	              }
+	          }
 
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
-				}
-
-				if (tck-tckLedR >= 250/2)  {
-
-					tckLedR += 250/2;
-
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-
-				}
-	  	}else if(state==1){
-
-	  		if (tck-tckLedB >= 100/2)  {
-
-					tckLedB += 100/2;
-
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
-				}
-	  	}else if(state==2){
-	  		if (tck-tckLedB >= 100)  {
-
-					tckLedB += 100;
-					HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, 1);
-					state=3;
-
-				}
-	  		if (tck-tckLedR >= ledRPeriod/2)  {
-
-					tckLedR += ledRPeriod/2;
-
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-
-				}
-	  	}else if(state==3)
-	  		if (tck-tckLedB >= 400)  {
-
-					tckLedB += 400;
-					HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, 0);
-					state=2;
-
-				}
-	  		if (tck-tckLedR >= ledRPeriod/2)  {
-
-					tckLedR += ledRPeriod/2;
-
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-
-				}
-
-
-
-	    bool button_now = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);
-
-	    if (button_state)  {
-
-
-			if (button_now)  {
-
-				tckButton = tck;
-
-			}  else  { // tlacitko uvolneno
-
-				if (tck-tckButton > 20) { // platne pusteni tlacitka
-
-					button_state = false;
-
-					// dalsi akce pri pusteni tlacitka... tck-tckButtonPress je doba stisku
-
-				}
-
-			}
-
-	    } else {
-
-			if (!button_now)  {
-
-				tckButton = tck;
-
-			} else { // tlacitko stisknuto
-
-				if (tck-tckButton > 20) { // platne stisknuti tlacitka
-
-					button_state = true;
-
-					tckButtonPress = tck;
-
-					ledRPeriod = tckButtonPress - tckButton;
-
-				// dalsi akce pri stisknuti tlacitka...
-
-				}
-
-			}
   }
-  /* USER CODE END 3 */
 }
+  /* USER CODE END 3 */
+
 
 /**
   * @brief System Clock Configuration
