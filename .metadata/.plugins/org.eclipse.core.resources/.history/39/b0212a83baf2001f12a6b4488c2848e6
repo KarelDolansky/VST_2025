@@ -104,6 +104,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   uint32_t tckLedB = HAL_GetTick();
   uint32_t tckLedR = HAL_GetTick();
+  uint32_t ledBPeriod = 500;
   uint32_t ledRPeriod = 250;
   uint32_t state=0;
 
@@ -117,8 +118,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  	uint32_t tck = HAL_GetTick();
-
-
 
 	  	if(state==0){
 	  		if (tck-tckLedB >= 500/2)  {
@@ -159,9 +158,9 @@ int main(void)
 					state=3;
 
 				}
-	  		if (tck-tckLedR >= ledRPeriod/2)  {
+	  		if (tck-tckLedR >= 250/2)  {
 
-					tckLedR += ledRPeriod/2;
+					tckLedR += 250/2;
 
 					//tckLedB = tck;
 
@@ -174,15 +173,6 @@ int main(void)
 					tckLedB += 400;
 					HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, 0);
 					state=2;
-
-				}
-	  		if (tck-tckLedR >= ledRPeriod/2)  {
-
-					tckLedR += ledRPeriod/2;
-
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 
 				}
 

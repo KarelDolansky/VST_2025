@@ -103,9 +103,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   uint32_t tckLedB = HAL_GetTick();
-  uint32_t tckLedR = HAL_GetTick();
+  uint32_t ledBPeriod = 500;
   uint32_t ledRPeriod = 250;
-  uint32_t state=0;
 
 
   bool button_state = false;
@@ -118,118 +117,55 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  	uint32_t tck = HAL_GetTick();
 
+	    if (tck-tckLedB >= ledBPeriod/2)  {
 
+	    tckLedB += ledBPeriod/2;
 
-	  	if(state==0){
-	  		if (tck-tckLedB >= 500/2)  {
+	    //tckLedB = tck;
 
-					tckLedB += 500/2;
+	    HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
-				}
-
-				if (tck-tckLedR >= 250/2)  {
-
-					tckLedR += 250/2;
-
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-
-				}
-	  	}else if(state==1){
-
-	  		if (tck-tckLedB >= 100/2)  {
-
-					tckLedB += 100/2;
-
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
-				}
-	  	}else if(state==2){
-	  		if (tck-tckLedB >= 100)  {
-
-					tckLedB += 100;
-					HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, 1);
-					state=3;
-
-				}
-	  		if (tck-tckLedR >= ledRPeriod/2)  {
-
-					tckLedR += ledRPeriod/2;
-
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-
-				}
-	  	}else if(state==3)
-	  		if (tck-tckLedB >= 400)  {
-
-					tckLedB += 400;
-					HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, 0);
-					state=2;
-
-				}
-	  		if (tck-tckLedR >= ledRPeriod/2)  {
-
-					tckLedR += ledRPeriod/2;
-
-					//tckLedB = tck;
-
-					HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-
-				}
-
-
+	    }
 
 	    bool button_now = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);
 
 	    if (button_state)  {
 
+	    if (button_now)  {
 
-			if (button_now)  {
+	    tckButton = tck;
 
-				tckButton = tck;
+	    }  else  { // tlacitko uvolneno
 
-			}  else  { // tlacitko uvolneno
+	    if (tck-tckButton > 20) { // platne pusteni tlacitka
 
-				if (tck-tckButton > 20) { // platne pusteni tlacitka
+	    button_state = false;
 
-					button_state = false;
+	    // dalsi akce pri pusteni tlacitka... tck-tckButtonPress je doba stisku
 
-					// dalsi akce pri pusteni tlacitka... tck-tckButtonPress je doba stisku
+	    }
 
-				}
-
-			}
+	    }
 
 	    } else {
 
-			if (!button_now)  {
+	    if (!button_now)  {
 
-				tckButton = tck;
+	    tckButton = tck;
 
-			} else { // tlacitko stisknuto
+	    } else { // tlacitko stisknuto
 
-				if (tck-tckButton > 20) { // platne stisknuti tlacitka
+	    if (tck-tckButton > 20) { // platne stisknuti tlacitka
 
-					button_state = true;
+	    button_state = true;
 
-					tckButtonPress = tck;
+	    tckButtonPress = tck;
 
-					ledRPeriod = tckButtonPress - tckButton;
+	    // dalsi akce pri stisknuti tlacitka...
 
-				// dalsi akce pri stisknuti tlacitka...
+	    }
 
-				}
-
-			}
+	    }
   }
   /* USER CODE END 3 */
 }

@@ -104,6 +104,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   uint32_t tckLedB = HAL_GetTick();
   uint32_t tckLedR = HAL_GetTick();
+  uint32_t ledBPeriod = 500;
   uint32_t ledRPeriod = 250;
   uint32_t state=0;
 
