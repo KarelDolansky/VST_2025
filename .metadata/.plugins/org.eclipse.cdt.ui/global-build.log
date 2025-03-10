@@ -108,3 +108,151 @@ Finished building: default.size.stdout
  
 Finished building: project.list
  
+16:25:01 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:203:1: error: expected identifier or '(' before '}' token
+  203 | }
+      | ^
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+16:26:57 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+16:27:23 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+16:29:11 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+16:29:29 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+16:29:50 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+16:33:06 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+16:35:15 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+16:39:33 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+16:42:10 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:122:8: warning: unused variable 'str' [-Wunused-variable]
+  122 |   char str[20];
+      |        ^~~
+../Core/Src/main.c:121:12: warning: unused variable 'cntr' [-Wunused-variable]
+  121 |   uint32_t cntr =0;
+      |            ^~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  17708	     12	   3116	  20836	   5164	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+16:42:57 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:122:8: warning: unused variable 'str' [-Wunused-variable]
+  122 |   char str[20];
+      |        ^~~
+../Core/Src/main.c:121:12: warning: unused variable 'cntr' [-Wunused-variable]
+  121 |   uint32_t cntr =0;
+      |            ^~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  17364	     12	   3116	  20492	   500c	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+16:44:28 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+16:45:07 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+16:45:39 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 
+16:46:05 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20396	     92	   3452	  23940	   5d84	project.elf
+Finished building: default.size.stdout
+ 

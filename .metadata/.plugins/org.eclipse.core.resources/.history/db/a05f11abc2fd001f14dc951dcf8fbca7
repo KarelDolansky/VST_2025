@@ -19,11 +19,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -99,10 +98,6 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
-  HAL_StatusTypeDef err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)"Start programu\r\n", 16, 100);
-  if (err != HAL_OK){
-	  Error_Handler();
-  }
 
   /* USER CODE END 2 */
 
@@ -117,19 +112,11 @@ int main(void)
   bool buttonState = false;
   uint32_t tckButton = HAL_GetTick();
   uint32_t tckButtonPress= 0;
-
-  uint32_t cntr =0;
-  char str[20];
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  sprintf(str,"Run %08lu\r\n",cntr++);
-	  HAL_StatusTypeDef err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
-	  if (err != HAL_OK){
-		  Error_Handler();
-	  }
 	  uint32_t tck = HAL_GetTick();
 	          bool buttonNow = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);
 
@@ -268,8 +255,8 @@ static void MX_LPUART1_UART_Init(void)
 
   /* USER CODE END LPUART1_Init 1 */
   hlpuart1.Instance = LPUART1;
-  hlpuart1.Init.BaudRate = 115200;
-  hlpuart1.Init.WordLength = UART_WORDLENGTH_8B;
+  hlpuart1.Init.BaudRate = 209700;
+  hlpuart1.Init.WordLength = UART_WORDLENGTH_7B;
   hlpuart1.Init.StopBits = UART_STOPBITS_1;
   hlpuart1.Init.Parity = UART_PARITY_NONE;
   hlpuart1.Init.Mode = UART_MODE_TX_RX;

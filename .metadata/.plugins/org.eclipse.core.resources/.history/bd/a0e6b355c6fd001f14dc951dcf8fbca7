@@ -125,11 +125,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  sprintf(str,"Run %08lu\r\n",cntr++);
+	  /*sprintf(str,"Run %08lu\r\n",cntr++);
 	  HAL_StatusTypeDef err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
 	  if (err != HAL_OK){
 		  Error_Handler();
-	  }
+	  }*/
 	  uint32_t tck = HAL_GetTick();
 	          bool buttonNow = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);
 
