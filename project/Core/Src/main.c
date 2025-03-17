@@ -21,11 +21,21 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdbool.h"
+#include "string.h"
 
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+
+HAL_StatusTypeDef err;
+uint32_t counter=0;
+bool click=false;
+char str[100];
+char info[100];
+uint32_t startT=0;
+uint32_t endT=0;
 
 /* USER CODE END PTD */
 
@@ -42,6 +52,8 @@
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef hlpuart1;
 UART_HandleTypeDef huart3;
+DMA_HandleTypeDef hdma_lpuart1_rx;
+DMA_HandleTypeDef hdma_lpuart1_tx;
 
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
@@ -52,6 +64,7 @@ PCD_HandleTypeDef hpcd_USB_OTG_FS;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_LPUART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
@@ -61,6 +74,19 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+bool writeT=false;
+
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
+	endT = HAL_GetTick();
+	writeT = false;
+	sprintf(info,"Start: %08lu, time: %08lu, blick: %08lu",startT,endT-startT,counter);
+			  	  err = HAL_UART_Transmit(&hlpuart1, (uint8_t *)info, strlen(info), 100);
+			  		if (err != HAL_OK){
+			  		Error_Handler();
+			  		}
+
+}
 
 /* USER CODE END 0 */
 
@@ -93,10 +119,19 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_LPUART1_UART_Init();
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
+
+  sprintf(str,"xkdmqwejzvbyluscfhotgnpraxmbtgfwcyzodslkejhvnupqairtmgxocdbzyvwnlkseqjfhurapxodcmgzytbnvkewsljqphurfa");
+  uint32_t waitT=0;
+  uint32_t now=0;
+  /*err = HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
+  if (err != HAL_OK){
+	Error_Handler();
+	}*/
 
   /* USER CODE END 2 */
 
@@ -104,9 +139,31 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+
+	  if (writeT){
+	  		  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+	  		  counter += 1;
+	  	  }
+	  now = HAL_GetTick();
+	  if(now-500>waitT){
+		  if(!writeT){
+
+		  startT=HAL_GetTick();
+		  writeT=true;
+		  err = HAL_UART_Transmit_DMA(&hlpuart1, (uint8_t *)str, strlen(str));
+		    if (err != HAL_OK){
+		  	Error_Handler();
+		  	}
+	  }
+
+	  waitT=HAL_GetTick();
+	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
   }
   /* USER CODE END 3 */
 }
@@ -177,8 +234,8 @@ static void MX_LPUART1_UART_Init(void)
 
   /* USER CODE END LPUART1_Init 1 */
   hlpuart1.Instance = LPUART1;
-  hlpuart1.Init.BaudRate = 209700;
-  hlpuart1.Init.WordLength = UART_WORDLENGTH_7B;
+  hlpuart1.Init.BaudRate = 115200;
+  hlpuart1.Init.WordLength = UART_WORDLENGTH_8B;
   hlpuart1.Init.StopBits = UART_STOPBITS_1;
   hlpuart1.Init.Parity = UART_PARITY_NONE;
   hlpuart1.Init.Mode = UART_MODE_TX_RX;
@@ -289,6 +346,26 @@ static void MX_USB_OTG_FS_PCD_Init(void)
   /* USER CODE BEGIN USB_OTG_FS_Init 2 */
 
   /* USER CODE END USB_OTG_FS_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMAMUX1_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+  /* DMA1_Channel2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
 
 }
 
