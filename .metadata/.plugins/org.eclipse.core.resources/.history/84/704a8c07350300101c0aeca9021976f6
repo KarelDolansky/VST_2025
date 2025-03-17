@@ -130,7 +130,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  sprintf(str,"Stav %08lu\r\n" ,(state+1)); //%08lu\r\n ,cntr++
+	  sprintf(str,"Run program"); //%08lu\r\n ,cntr++
 	  HAL_StatusTypeDef err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
 
 	  if (err != HAL_OK){
@@ -186,12 +186,6 @@ int main(void)
 	                      tckLedR += ledRPeriod / 2;
 	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	                  }
-	                  sprintf(str,"Perioda red: %08lu\r\n ", ledRPeriod);
-					  HAL_StatusTypeDef err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
-
-					  if (err != HAL_OK){
-						  Error_Handler();
-					  }
 	                  break;
 	          }
 	          if (buttonState) {

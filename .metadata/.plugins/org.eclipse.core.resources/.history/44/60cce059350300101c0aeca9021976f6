@@ -186,12 +186,6 @@ int main(void)
 	                      tckLedR += ledRPeriod / 2;
 	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	                  }
-	                  sprintf(str,"Perioda red: %08lu\r\n ", ledRPeriod);
-					  HAL_StatusTypeDef err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
-
-					  if (err != HAL_OK){
-						  Error_Handler();
-					  }
 	                  break;
 	          }
 	          if (buttonState) {
