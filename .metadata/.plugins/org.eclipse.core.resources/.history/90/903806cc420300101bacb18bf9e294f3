@@ -187,11 +187,11 @@ int main(void)
 	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	                  }
 	                  sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
-					  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
+	                  	            	  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
 
-					  if (err != HAL_OK){
-						  Error_Handler();
-					  }
+	                  	            	  if (err != HAL_OK){
+	                  	            		  Error_Handler();
+	                  	            	  }
 	                  break;
 
 	              case 3:
@@ -205,11 +205,11 @@ int main(void)
 	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	                  }
 	                  sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
-					  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
+	                  	                  	            	  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
 
-					  if (err != HAL_OK){
-						  Error_Handler();
-					  }
+	                  	                  	            	  if (err != HAL_OK){
+	                  	                  	            		  Error_Handler();
+	                  	                  	            	  }
 	                  break;
 	          }
 	          if (buttonState) {

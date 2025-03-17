@@ -152,7 +152,7 @@ int main(void)
 	                      state = 1;
 	                  }
 
-	            	  sprintf(str,"Stav %08lu\r\n" ,1);
+	            	  sprintf(str,"Stav %08lu\r\n" ,1); //%08lu\r\n ,cntr++
 	            	  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
 
 	            	  if (err != HAL_OK){
@@ -168,12 +168,6 @@ int main(void)
 	                  if (buttonState && (tck - tckButtonPress >= 1000)) {
 	                      state = 2;
 	                  }
-	                  sprintf(str,"Stav %08lu\r\n" ,2);
-	                  	            	  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
-
-	                  	            	  if (err != HAL_OK){
-	                  	            		  Error_Handler();
-	                  	            	  }
 	                  break;
 
 	              case 2:
@@ -186,12 +180,6 @@ int main(void)
 	                      tckLedR += ledRPeriod / 2;
 	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	                  }
-	                  sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
-					  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
-
-					  if (err != HAL_OK){
-						  Error_Handler();
-					  }
 	                  break;
 
 	              case 3:
@@ -204,12 +192,6 @@ int main(void)
 	                      tckLedR += ledRPeriod / 2;
 	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	                  }
-	                  sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
-					  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
-
-					  if (err != HAL_OK){
-						  Error_Handler();
-					  }
 	                  break;
 	          }
 	          if (buttonState) {

@@ -1,10 +1,56 @@
-16:46:05 **** Incremental Build of configuration Debug for project project ****
+16:16:38 **** Incremental Build of configuration Debug for project project ****
 make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:155:49: warning: format '%lu' expects argument of type 'long unsigned int', but argument 3 has type 'int' [-Wformat=]
+  155 |                           sprintf(str,"Stav %08lu\r\n" ,1);
+      |                                             ~~~~^       ~
+      |                                                 |       |
+      |                                                 |       int
+      |                                                 long unsigned int
+      |                                             %08u
+../Core/Src/main.c:171:49: warning: format '%lu' expects argument of type 'long unsigned int', but argument 3 has type 'int' [-Wformat=]
+  171 |                           sprintf(str,"Stav %08lu\r\n" ,2);
+      |                                             ~~~~^       ~
+      |                                                 |       |
+      |                                                 |       int
+      |                                                 long unsigned int
+      |                                             %08u
+../Core/Src/main.c:189:49: warning: format '%lu' expects argument of type 'long unsigned int', but argument 3 has type 'int' [-Wformat=]
+  189 |                           sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
+      |                                             ~~~~^                         ~
+      |                                                 |                         |
+      |                                                 long unsigned int         int
+      |                                             %08u
+../Core/Src/main.c:207:49: warning: format '%lu' expects argument of type 'long unsigned int', but argument 3 has type 'int' [-Wformat=]
+  207 |                           sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
+      |                                             ~~~~^                         ~
+      |                                                 |                         |
+      |                                                 long unsigned int         int
+      |                                             %08u
+../Core/Src/main.c:207:57: warning: ', period red ' directive writing 13 bytes into a region of size 7 [-Wformat-overflow=]
+  207 |                           sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
+      |                                                  ~~~~~~~^~~~~~
+../Core/Src/main.c:207:27: note: 'sprintf' output between 37 and 39 bytes into a destination of size 20
+  207 |                           sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:189:57: warning: ', period red ' directive writing 13 bytes into a region of size 7 [-Wformat-overflow=]
+  189 |                           sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
+      |                                                  ~~~~~~~^~~~~~
+../Core/Src/main.c:189:27: note: 'sprintf' output between 37 and 39 bytes into a destination of size 20
+  189 |                           sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
 arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
    text	   data	    bss	    dec	    hex	filename
-  20396	     92	   3452	  23940	   5d84	project.elf
+  24348	     92	   3644	  28084	   6db4	project.elf
 Finished building: default.size.stdout
  
+Finished building: project.list
+ 
 
-16:46:06 Build Finished. 0 errors, 0 warnings. (took 464ms)
+16:16:41 Build Finished. 0 errors, 6 warnings. (took 2s.993ms)
 
