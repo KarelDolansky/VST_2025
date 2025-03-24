@@ -1809,3 +1809,22 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-03-17 16:07:50.448
 !MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-03-24 16:29:20.560 -----------------------------------------------
+eclipse.buildId=Version 1.18.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\.project
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-03-24 16:29:27.325
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-03-24 16:29:27.334
+!MESSAGE Log4j2 initialized with config file C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-03-24 16:29:36.109
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-03-24 16:29:41.636
+!MESSAGE Indexed 'project' (26 sources, 124 headers) in 5.36 sec: 13,322 declarations; 66,095 references; 3 unresolved inclusions; 46 syntax errors; 171 unresolved names (0.21%)

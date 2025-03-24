@@ -24,6 +24,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#define SIZEB 50
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,6 +67,69 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint32_t tckLedB = 0;
+uint32_t tckLedR = 0;
+uint32_t ledRPeriod = 250;
+uint32_t state=0;
+uint32_t transmitT=0;
+
+
+bool buttonState = false;
+uint32_t tckButton = 0;
+uint32_t tckButtonPress= 0;
+uint32_t rxpos=0;
+
+char rxbuffer[SIZEB];
+char str[20];
+
+void LED_Red_On() { HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET); }
+void LED_Red_Off() { HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET); }
+void LED_Blue_On() { HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET); }
+void LED_Blue_Off() { HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET); }
+void LED_Green_On() { HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_SET); }
+void LED_Green_Off() { HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET); }
+
+// Pomocné funkce
+void transmitState(uint32_t stateNumber) {
+    sprintf(str, "Stav %08lu\r\n", stateNumber);
+    if (HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100) != HAL_OK) {
+        Error_Handler();
+    }
+}
+
+void transmitPeriod(uint32_t period) {
+    sprintf(str, "Period red %08lu\r\n", period);
+    if (HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100) != HAL_OK) {
+        Error_Handler();
+    }
+}
+
+void processCommand(const char *rxbuffer) {
+    if (strcmp(rxbuffer, "RON") == 0) {
+        state = 4;
+        LED_Red_On();
+    } else if (strcmp(rxbuffer, "ROFF") == 0) {
+    	state = 4;
+        LED_Red_Off();
+    } else if (strcmp(rxbuffer, "BON") == 0) {
+    	state = 4;
+    	LED_Blue_On();
+    } else if (strcmp(rxbuffer, "BOFF") == 0) {
+    	state = 4;
+    	LED_Blue_Off();
+    } else if (strcmp(rxbuffer, "GON") == 0) {
+    	state = 4;
+    	LED_Green_On();
+    } else if (strcmp(rxbuffer, "GOFF") == 0) {
+    	state = 4;
+    	LED_Green_Off();
+    } else if (strcmp(rxbuffer, "RESET") == 0) {
+        LED_Red_Off();
+        LED_Blue_Off();
+        LED_Green_Off();
+        state=0;
+    }
+}
 
 /* USER CODE END 0 */
 
@@ -103,131 +167,118 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
+
   HAL_StatusTypeDef err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)"Start programu\r\n", 16, 100);
   if (err != HAL_OK){
 	  Error_Handler();
   }
 
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint32_t tckLedB = HAL_GetTick();
-  uint32_t tckLedR = HAL_GetTick();
-  uint32_t ledRPeriod = 250;
-  uint32_t state=0;
-
-
-  bool buttonState = false;
-  uint32_t tckButton = HAL_GetTick();
-  uint32_t tckButtonPress= 0;
-
-
-  char str[20];
-  sprintf(str,"Run program"); //%08lu\r\n ,cntr++
-  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
-  if (err != HAL_OK){
-	  Error_Handler();
-  }
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 
-	  uint32_t tck = HAL_GetTick();
-	          bool buttonNow = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);
 
-	          switch (state) {
-	              case 0:
-	                  if (tck - tckLedB >= 250) {
-	                      tckLedB += 250;
-	                      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-	                  }
-	                  if (tck - tckLedR >= 125) {
-	                      tckLedR += 125;
-	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-	                  }
-	                  if (buttonState) {
-	                      state = 1;
-	                  }
+          if (HAL_UART_Receive(&hlpuart1, (uint8_t *)&rxbuffer[rxpos], 1, 0) == HAL_OK) {
+              if (rxbuffer[rxpos] == '\r' || rxbuffer[rxpos] == '\n') {
+                  if (rxpos != 0) {
+                      HAL_UART_Transmit(&hlpuart1, (uint8_t *)"\r\nPrikaz: ", 10, 100);
+                      HAL_UART_Transmit(&hlpuart1, (uint8_t *)rxbuffer, rxpos, 100);
+                      HAL_UART_Transmit(&hlpuart1, (uint8_t *)"\r\n", 2, 100);
 
-	            	  sprintf(str,"Stav %08lu\r\n" ,1);
-	            	  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
+                      rxbuffer[rxpos] = '\0';
+                      processCommand(rxbuffer);
+                  }
+                  rxpos = 0;
+              } else if (rxpos + 1 < SIZEB) {
+                  HAL_UART_Transmit(&hlpuart1, (uint8_t *)&rxbuffer[rxpos], 1, 10);
+                  rxpos++;
+              }
+          }
 
-	            	  if (err != HAL_OK){
-	            		  Error_Handler();
-	            	  }
-	                  break;
+          uint32_t tck = HAL_GetTick();
+          bool buttonNow = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);
+          if(tck-transmitT>750)
+          {
+        	  transmitState(state+1);
+        	  if(state==2||state==3){
+        		  transmitPeriod(ledRPeriod);
+        	  }
+        	  transmitT=HAL_GetTick();
+          }
 
-	              case 1:
-	                  if (tck - tckLedB >= 50) {
-	                      tckLedB += 50;
-	                      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-	                  }
-	                  if (buttonState && (tck - tckButtonPress >= 1000)) {
-	                      state = 2;
-	                  }
-	                  sprintf(str,"Stav %08lu\r\n" ,2);
-	                  	            	  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
+          switch (state) {
+              case 0:
+                  if (tck - tckLedB >= 250) {
+                      tckLedB += 250;
+                      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+                  }
+                  if (tck - tckLedR >= 125) {
+                      tckLedR += 125;
+                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+                  }
+                  if (buttonState) {
+                      state = 1;
+                  }
+                  break;
 
-	                  	            	  if (err != HAL_OK){
-	                  	            		  Error_Handler();
-	                  	            	  }
-	                  break;
+              case 1:
+                  if (tck - tckLedB >= 50) {
+                      tckLedB += 50;
+                      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+                  }
+                  if (buttonState && (tck - tckButtonPress >= 1000)) {
+                      state = 2;
+                  }
+                  break;
 
-	              case 2:
-	                  if (tck - tckLedB >= 100) {
-	                      tckLedB += 100;
-	                      HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-	                      state = 3;
-	                  }
-	                  if (tck - tckLedR >= ledRPeriod / 2) {
-	                      tckLedR += ledRPeriod / 2;
-	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-	                  }
-	                  sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
-					  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
+              case 2:
+                  if (tck - tckLedB >= 100) {
+                      tckLedB += 100;
+                      HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+                      state = 3;
+                  }
+                  if (tck - tckLedR >= ledRPeriod / 2) {
+                      tckLedR += ledRPeriod / 2;
+                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+                  }
+                  break;
 
-					  if (err != HAL_OK){
-						  Error_Handler();
-					  }
-	                  break;
+              case 3:
+                  if (tck - tckLedB >= 400) {
+                      tckLedB += 400;
+                      HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+                      state = 2;
+                  }
+                  if (tck - tckLedR >= ledRPeriod / 2) {
+                      tckLedR += ledRPeriod / 2;
+                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+                  }
+                  break;
+          }
 
-	              case 3:
-	                  if (tck - tckLedB >= 400) {
-	                      tckLedB += 400;
-	                      HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-	                      state = 2;
-	                  }
-	                  if (tck - tckLedR >= ledRPeriod / 2) {
-	                      tckLedR += ledRPeriod / 2;
-	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-	                  }
-	                  sprintf(str,"Stav %08lu, period red %08lu\r\n" ,3,ledRPeriod);
-					  err= HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100);
-
-					  if (err != HAL_OK){
-						  Error_Handler();
-					  }
-	                  break;
-	          }
-	          if (buttonState) {
-	              if (!buttonNow && (tck - tckButton > 20)) {
-	                  buttonState = false;
-	                  ledRPeriod = tck - tckButtonPress;
-	              }
-	          } else {
-	              if (buttonNow && (tck - tckButton > 20)) {
-	                  buttonState = true;
-	                  tckButtonPress = tck;
-	                  if (state == 1) {
-	                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-	                  }
-	              }
-	          }
-
-  }
+          if (buttonState) {
+              if (!buttonNow && (tck - tckButton > 20)) {
+                  buttonState = false;
+                  ledRPeriod = tck - tckButtonPress;
+              }
+          } else {
+              if (buttonNow && (tck - tckButton > 20)) {
+                  buttonState = true;
+                  tckButtonPress = tck;
+                  if (state == 1) {
+                      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+                  }
+              }
+          }
+      }
 }
   /* USER CODE END 3 */
 
@@ -459,6 +510,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(USB_PowerSwitchOn_GPIO_Port, USB_PowerSwitchOn_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
@@ -484,6 +538,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(USB_PowerSwitchOn_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : LD1_Pin */
+  GPIO_InitStruct.Pin = LD1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LD1_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
