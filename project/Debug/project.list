@@ -626,7 +626,7 @@ void processCommand(const char *rxbuffer) {
         LED_Red_Off();
         LED_Blue_Off();
         LED_Green_Off();
-        state=1;
+        state=0;
     }
 }
  8000734:	e050      	b.n	80007d8 <processCommand+0xc4>
@@ -718,9 +718,9 @@ void processCommand(const char *rxbuffer) {
  80007ca:	f7ff ff3b 	bl	8000644 <LED_Blue_Off>
         LED_Green_Off();
  80007ce:	f7ff ff51 	bl	8000674 <LED_Green_Off>
-        state=1;
+        state=0;
  80007d2:	4b04      	ldr	r3, [pc, #16]	@ (80007e4 <processCommand+0xd0>)
- 80007d4:	2201      	movs	r2, #1
+ 80007d4:	2200      	movs	r2, #0
  80007d6:	601a      	str	r2, [r3, #0]
 }
  80007d8:	bf00      	nop
