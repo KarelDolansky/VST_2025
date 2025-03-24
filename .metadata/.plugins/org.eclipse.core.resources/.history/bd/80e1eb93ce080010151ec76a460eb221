@@ -72,8 +72,6 @@ uint32_t tckLedR = 0;
 uint32_t ledRPeriod = 250;
 uint32_t state=0;
 uint32_t transmitT=0;
-uint32_t period=0;
-uint32_t tckall=0;
 
 
 bool buttonState = false;
@@ -108,22 +106,22 @@ void transmitPeriod(uint32_t period) {
 
 void processCommand(const char *rxbuffer) {
     if (strcmp(rxbuffer, "RON") == 0) {
-        state = 5;
+        state = 4;
         LED_Red_On();
     } else if (strcmp(rxbuffer, "ROFF") == 0) {
-    	state = 5;
+    	state = 4;
         LED_Red_Off();
     } else if (strcmp(rxbuffer, "BON") == 0) {
-    	state = 5;
+    	state = 4;
     	LED_Blue_On();
     } else if (strcmp(rxbuffer, "BOFF") == 0) {
-    	state = 5;
+    	state = 4;
     	LED_Blue_Off();
     } else if (strcmp(rxbuffer, "GON") == 0) {
-    	state = 5;
+    	state = 4;
     	LED_Green_On();
     } else if (strcmp(rxbuffer, "GOFF") == 0) {
-    	state = 5;
+    	state = 4;
     	LED_Green_Off();
     } else if (strcmp(rxbuffer, "RESET") == 0) {
         LED_Red_Off();
@@ -131,11 +129,7 @@ void processCommand(const char *rxbuffer) {
         LED_Green_Off();
         state=0;
     } else if (strcmp(rxbuffer, "BLIK",5) == 0) {
-    	LED_Red_Off();
-		LED_Blue_Off();
-		LED_Green_Off();
-    	period = atoi(rxbuffer + 5);
-    	state=4;
+    	int period = atoi(rxbuffer + 5);
     }
 }
 
@@ -270,12 +264,6 @@ int main(void)
                       HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
                   }
                   break;
-              case 4:
-            	  if(tck-tckall>=period){
-            		  HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-            		  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-            		  HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-            	  }
           }
 
           if (buttonState) {

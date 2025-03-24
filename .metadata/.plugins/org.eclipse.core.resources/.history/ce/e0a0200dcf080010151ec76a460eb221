@@ -131,11 +131,7 @@ void processCommand(const char *rxbuffer) {
         LED_Green_Off();
         state=0;
     } else if (strcmp(rxbuffer, "BLIK",5) == 0) {
-    	LED_Red_Off();
-		LED_Blue_Off();
-		LED_Green_Off();
     	period = atoi(rxbuffer + 5);
-    	state=4;
     }
 }
 

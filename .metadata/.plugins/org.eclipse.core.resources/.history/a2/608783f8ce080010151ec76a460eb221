@@ -131,11 +131,7 @@ void processCommand(const char *rxbuffer) {
         LED_Green_Off();
         state=0;
     } else if (strcmp(rxbuffer, "BLIK",5) == 0) {
-    	LED_Red_Off();
-		LED_Blue_Off();
-		LED_Green_Off();
     	period = atoi(rxbuffer + 5);
-    	state=4;
     }
 }
 
@@ -272,9 +268,7 @@ int main(void)
                   break;
               case 4:
             	  if(tck-tckall>=period){
-            		  HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-            		  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-            		  HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+
             	  }
           }
 
