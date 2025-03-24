@@ -22,9 +22,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdbool.h>
-
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #define SIZEB 50
 /* USER CODE END Includes */
 
@@ -131,7 +131,7 @@ void processCommand(const char *rxbuffer) {
         LED_Blue_Off();
         LED_Green_Off();
         state=0;
-    } else if (strncmp(rxbuffer, "BLIK ", 5) == 0) {
+    } else if (strcmp(rxbuffer, "BLIK",5) == 0) {
     	LED_Red_Off();
 		LED_Blue_Off();
 		LED_Green_Off();

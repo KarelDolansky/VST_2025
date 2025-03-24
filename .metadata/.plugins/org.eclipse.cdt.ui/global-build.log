@@ -670,3 +670,71 @@ Finished building: default.size.stdout
  
 Finished building: project.list
  
+17:43:53 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:133:16: error: too many arguments to function 'strcmp'
+  133 |     } else if (strcmp(rxbuffer, "BLIK",5) == 0) {
+      |                ^~~~~~
+In file included from ../Core/Src/main.c:26:
+C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/string.h:36:10: note: declared here
+   36 | int      strcmp (const char *, const char *);
+      |          ^~~~~~
+../Core/Src/main.c:137:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  137 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:45:02 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:134:16: error: too many arguments to function 'strcmp'
+  134 |     } else if (strcmp(rxbuffer, "BLIK",5) == 0) {
+      |                ^~~~~~
+In file included from ../Core/Src/main.c:26:
+C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/string.h:36:10: note: declared here
+   36 | int      strcmp (const char *, const char *);
+      |          ^~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:45:26 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:135:16: error: too many arguments to function 'strcmp'
+  135 |     } else if (strcmp(rxbuffer, "BLIK",5) == 0) {
+      |                ^~~~~~
+In file included from ../Core/Src/main.c:28:
+C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/string.h:36:10: note: declared here
+   36 | int      strcmp (const char *, const char *);
+      |          ^~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:46:50 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:138:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  138 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:104:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  104 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:104:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  104 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26124	     96	   3752	  29972	   7514	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
