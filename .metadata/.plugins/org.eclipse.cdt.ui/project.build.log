@@ -1,17 +1,17 @@
-17:46:50 **** Incremental Build of configuration Debug for project project ****
+17:13:02 **** Incremental Build of configuration Debug for project project ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'processCommand':
-../Core/Src/main.c:138:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
-  138 |         period = atoi(rxbuffer + 5);
+../Core/Src/main.c:159:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  159 |         period = atoi(rxbuffer + 5);
       |                  ^~~~
 ../Core/Src/main.c: In function 'transmitPeriod':
-../Core/Src/main.c:104:37: warning: '
+../Core/Src/main.c:107:37: warning: '
    ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
-  104 |     sprintf(str, "Period red %08lu\r\n", period);
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
       |                                   ~~^~
-../Core/Src/main.c:104:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
-  104 |     sprintf(str, "Period red %08lu\r\n", period);
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
       |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: project.elf
@@ -19,11 +19,11 @@ Finished building target: project.elf
 arm-none-eabi-size  project.elf 
 arm-none-eabi-objdump -h -S project.elf  > "project.list"
    text	   data	    bss	    dec	    hex	filename
-  26124	     96	   3752	  29972	   7514	project.elf
+  26380	    100	   3748	  30228	   7614	project.elf
 Finished building: default.size.stdout
  
 Finished building: project.list
  
 
-17:46:53 Build Finished. 0 errors, 2 warnings. (took 2s.76ms)
+17:13:03 Build Finished. 0 errors, 2 warnings. (took 1s.356ms)
 

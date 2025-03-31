@@ -75,6 +75,8 @@ uint32_t state=0;
 uint32_t transmitT=0;
 uint32_t period=0;
 uint32_t tckall=0;
+bool change=true;
+bool redBlick = false;
 
 
 bool buttonState = false;
@@ -86,7 +88,8 @@ char rxbuffer[SIZEB];
 char str[20];
 
 void LED_Red_On() { HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET); }
-void LED_Red_Off() { HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET); }
+void LED_Red_Off() { HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+redBlick = false;}
 void LED_Blue_On() { HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET); }
 void LED_Blue_Off() { HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET); }
 void LED_Green_On() { HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_SET); }
@@ -106,6 +109,23 @@ void transmitPeriod(uint32_t period) {
         Error_Handler();
     }
 }
+
+void transmitStateLed() {
+	if(redBlick){
+		sprintf(str, "Cervena led zapla\r\n");
+		    if (HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100) != HAL_OK) {
+		        Error_Handler();
+		    }
+	}else{
+		sprintf(str, "Cervena led vypla\r\n");
+				    if (HAL_UART_Transmit(&hlpuart1, (uint8_t *)str, strlen(str), 100) != HAL_OK) {
+				        Error_Handler();
+				    }
+	}
+
+
+}
+
 
 void processCommand(const char *rxbuffer) {
     if (strcmp(rxbuffer, "RON") == 0) {
@@ -127,6 +147,7 @@ void processCommand(const char *rxbuffer) {
     	state = 5;
     	LED_Green_Off();
     } else if (strcmp(rxbuffer, "RESET") == 0) {
+    	change=true;
         LED_Red_Off();
         LED_Blue_Off();
         LED_Green_Off();
@@ -214,13 +235,16 @@ int main(void)
 
           uint32_t tck = HAL_GetTick();
           bool buttonNow = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);
-          if(tck-transmitT>750)
+          if(change)
           {
-        	  transmitState(state+1);
+
         	  if(state==2||state==3){
-        		  transmitPeriod(ledRPeriod);
+        		  transmitState(3);
+        	  }else{
+        		  transmitState(state+1);
         	  }
-        	  transmitT=HAL_GetTick();
+
+        	  change=false;
           }
 
           switch (state) {
@@ -234,7 +258,9 @@ int main(void)
                       HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
                   }
                   if (buttonState) {
+                	  LED_Red_Off();
                       state = 1;
+                      change=true;
                   }
                   break;
 
@@ -245,6 +271,7 @@ int main(void)
                   }
                   if (buttonState && (tck - tckButtonPress >= 1000)) {
                       state = 2;
+                      change=true;
                   }
                   break;
 
@@ -276,20 +303,31 @@ int main(void)
             		  HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
             		  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
             		  HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+            		  tckall=HAL_GetTick();
             	  }
           }
 
           if (buttonState) {
-              if (!buttonNow && (tck - tckButton > 20)) {
-                  buttonState = false;
-                  ledRPeriod = tck - tckButtonPress;
+              if (buttonNow) {
+            	  tckButton=HAL_GetTick();
+              }else{
+            	  if((tck - tckButton > 20)){
+					  buttonState = false;
+					  ledRPeriod = tck - tckButtonPress;
+					if(state==2||state==3){
+						transmitPeriod(ledRPeriod);
+					}
+				  }
               }
+
           } else {
               if (buttonNow && (tck - tckButton > 20)) {
                   buttonState = true;
                   tckButtonPress = tck;
                   if (state == 1) {
                       HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+                      redBlick=!redBlick;
+                      transmitStateLed();
                   }
               }
           }

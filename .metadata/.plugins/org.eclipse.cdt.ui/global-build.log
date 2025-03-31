@@ -738,3 +738,340 @@ Finished building: default.size.stdout
  
 Finished building: project.list
  
+16:19:33 **** Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26124	     96	   3752	  29972	   7514	project.elf
+Finished building: default.size.stdout
+ 
+16:23:23 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:138:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  138 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:104:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  104 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:104:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  104 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26132	     96	   3752	  29980	   751c	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+16:51:14 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'transmitStateLed':
+../Core/Src/main.c:115:30: warning: too many arguments for format [-Wformat-extra-args]
+  115 |                 sprintf(str, "Cervena led zapla", period);
+      |                              ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:120:30: warning: too many arguments for format [-Wformat-extra-args]
+  120 |                 sprintf(str, "Cervena led vypla", period);
+      |                              ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:166:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  166 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:329:23: error: too few arguments to function 'transmitStateLed'
+  329 |                       transmitStateLed();
+      |                       ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:113:6: note: declared here
+  113 | void transmitStateLed(uint32_t led) {
+      |      ^~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+16:51:37 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'transmitStateLed':
+../Core/Src/main.c:115:30: warning: too many arguments for format [-Wformat-extra-args]
+  115 |                 sprintf(str, "Cervena led zapla", period);
+      |                              ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:120:30: warning: too many arguments for format [-Wformat-extra-args]
+  120 |                 sprintf(str, "Cervena led vypla", period);
+      |                              ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:166:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  166 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26420	     96	   3752	  30268	   763c	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+16:52:08 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'transmitStateLed':
+../Core/Src/main.c:115:30: warning: too many arguments for format [-Wformat-extra-args]
+  115 |                 sprintf(str, "Cervena led zapla", period);
+      |                              ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:120:30: warning: too many arguments for format [-Wformat-extra-args]
+  120 |                 sprintf(str, "Cervena led vypla", period);
+      |                              ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:166:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  166 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26420	    100	   3748	  30268	   763c	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+16:53:38 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:166:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  166 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26404	    100	   3748	  30252	   762c	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+16:55:09 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:166:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  166 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26404	    100	   3748	  30252	   762c	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+16:55:39 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-size  project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26404	    100	   3748	  30252	   762c	project.elf
+Finished building: default.size.stdout
+ 
+16:57:40 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:166:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  166 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26412	    100	   3748	  30260	   7634	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+17:01:34 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:166:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  166 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26408	    100	   3748	  30256	   7630	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+17:03:49 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:166:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  166 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26424	    100	   3748	  30272	   7640	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+17:09:10 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:166:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  166 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26424	    100	   3748	  30272	   7640	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+17:11:33 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:159:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  159 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26380	    100	   3748	  30228	   7614	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
+17:13:02 **** Incremental Build of configuration Debug for project project ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'processCommand':
+../Core/Src/main.c:159:18: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  159 |         period = atoi(rxbuffer + 5);
+      |                  ^~~~
+../Core/Src/main.c: In function 'transmitPeriod':
+../Core/Src/main.c:107:37: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |                                   ~~^~
+../Core/Src/main.c:107:5: note: 'sprintf' output between 22 and 24 bytes into a destination of size 20
+  107 |     sprintf(str, "Period red %08lu\r\n", period);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\baron\skola\data\6_semestr\VST_2025_DOLANSKY\project\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project.elf
+ 
+arm-none-eabi-size  project.elf 
+arm-none-eabi-objdump -h -S project.elf  > "project.list"
+   text	   data	    bss	    dec	    hex	filename
+  26380	    100	   3748	  30228	   7614	project.elf
+Finished building: default.size.stdout
+ 
+Finished building: project.list
+ 
